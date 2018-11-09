@@ -15,3 +15,4 @@ class CulturaItem(scrapy.Item):
     categoria = scrapy.Field()
     detalhes = scrapy.Field()
     dimensoes = scrapy.Field()
+    url = scrapy.Field()

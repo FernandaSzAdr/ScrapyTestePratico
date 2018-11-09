@@ -23,7 +23,7 @@ class FirstspiderSpider(scrapy.Spider):
 
         links_sub_categoria = response.xpath('//div[@class="cat-links"]/ul/li/a/@href').extract()
 
-        links_sub_categoria = links_sub_categoria[:4]
+        links_sub_categoria = links_sub_categoria
 
         for link in links_sub_categoria:
             url_sub_categoria = urljoin(response.url, link)
@@ -37,7 +37,7 @@ class FirstspiderSpider(scrapy.Spider):
         #self.log('[LINK] %s' %links_produtos_pagina)
 
         # Pega os produtos daquela página
-        for link in links_produtos_pagina[:2]:
+        for link in links_produtos_pagina:
             yield scrapy.Request(link, self.produto)
 
         try:
@@ -57,6 +57,7 @@ class FirstspiderSpider(scrapy.Spider):
         self.log('[PRODUTO]   ACESSANDO URL: %s' % response.url)
 
         item = CulturaItem()
+        item['url'] = response.url
         item['nome'] = response.xpath('//h1[@class="title"]/text()').extract_first()
 
         valor = response.xpath('//div[@class="price-details"]/*[@class="price"]/text()').extract()
@@ -78,11 +79,12 @@ class FirstspiderSpider(scrapy.Spider):
             item['valor_antigo'] = 0.0
 
         item['categoria'] = response.xpath('//nav[@class="breadcrumb-wrapper"]/ol[@class="breadcrumb container"]'
-                                           + '/li[2]/a/text()').extract()
+                                           + '/li[2]/a/text()').extract_first()
 
         detalhes = {}
         detalhes['origem'] = response.xpath('//*[text()[contains(., "Origem")]]/following-sibling::text()').extract_first()
-        detalhes['idioma'] = response.xpath('//ul/*[text()[contains(., "Idioma")]]/following-sibling::text()').extract_first()
+        detalhes['idioma'] = response.xpath('//ul[@class="details-column"]/li/*[text()[contains(., "Idioma")]]'
+                                            + '/following-sibling::text()').extract_first()
         item['detalhes'] = detalhes
 
         dimensoes = {}
