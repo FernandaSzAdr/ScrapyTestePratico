@@ -6,12 +6,17 @@
 #### Objetivos
 * Construir um crawler para uma loja online utilizando o Scrapy
 * A spider deve realizar uma busca e extrair informalões de cada produto resultante
-* Utilização de xpath na busca por links e na raspagem de dados [ok]
-* Utilizar logs para sinalização de ocorrências durante o scraping [ok]
+* Utilização de xpath na busca por links e na raspagem de dados 
+* Utilizar logs para sinalização de ocorrências durante o scraping 
 
 
 #### Campos utilizados
-* 
+* nome 
+* valor
+* valor_antigo 
+* categoria 
+* detalhes {origem, idioma}
+* dimensoes {altura, largura, comprimento}
 
 #### Spider
 * 

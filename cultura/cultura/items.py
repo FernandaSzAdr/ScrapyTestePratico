@@ -12,5 +12,6 @@ class CulturaItem(scrapy.Item):
     nome = scrapy.Field()
     valor = scrapy.Field()
     valor_antigo = scrapy.Field()
-    marca = scrapy.Field()
     categoria = scrapy.Field()
+    detalhes = scrapy.Field()
+    dimensoes = scrapy.Field()
